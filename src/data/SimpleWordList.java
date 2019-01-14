@@ -20,14 +20,12 @@ public class SimpleWordList implements WordList {
 	private Set<String> words = new HashSet<>();
 	private Map<String, ArrayList<String>> wordsMap = new HashMap<>();
 	
-
 	@Override
 	//2.1
 	public Set<String> validWordsUsingAllTiles(String tileRackPart) {
 		Set<String> valids = new HashSet<>();
 		Permutation tiles = new Permutation(tileRackPart);
-		//für 2 permutationen equals machen
-		//check whether inserted word is valid and possible to make out of given tile.
+		
 		for (String word : words ) {
 			Permutation perm = new Permutation(word);
 			if(perm.equals(tiles)) {
@@ -49,24 +47,26 @@ public class SimpleWordList implements WordList {
 
 	@Override
 	public boolean add(String word) {
-		ArrayList<String> perms = new ArrayList<String>();  
+		ArrayList<String> perms = new ArrayList<>(); 
+		perms.add(word);
 		Permutation perm = new Permutation(word);
-		
-		if(!wordsMap.containsKey(perm.getNormalized())) {
-			wordsMap.put(perm.getNormalized(), perms);
+		String normalized = perm.getNormalized();
+		if(!wordsMap.containsKey(normalized)) {
+			wordsMap.put(normalized, perms);
 		}
 		else{
 			//after get I get the value, the list
 			//why get key and then add to it a value
-			wordsMap.get(perm.getNormalized()).add(perm.getWord());
+			wordsMap.get(normalized).add(perm.getWord());
 		}
 		return true;
 	}
 
 	@Override
 	public boolean addAll(Collection<String> words) {
-		// TODO Auto-generated method stub
-		return false;
+		for(String w: words)
+			add(w);
+		return true;
 	}
 
 	@Override
@@ -83,6 +83,7 @@ public class SimpleWordList implements WordList {
 			String word  = reader.readLine();
 			while(word != null){
 				words.add(word);
+				word = reader.readLine();
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

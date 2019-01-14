@@ -41,8 +41,7 @@ public class Permutation {
 	}
 
 	public String getWord() {
-		// TBD: implement this method
-		return null;
+		return word;
 	}
 
 	public int length() {
