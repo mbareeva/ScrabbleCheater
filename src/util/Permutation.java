@@ -19,8 +19,21 @@ public class Permutation {
 
 	@Override
 	public int hashCode() {
-		return getNormalized().hashCode();
+		//first version of hashCode() method
+		int code = 0;
+		for(int i = 0; i < getNormalized().length(); i++) {
+			code += Character.getNumericValue(getNormalized().charAt(i));}
+		return code;
+		
+		//second version of hashCode() as hashFunction: arrayIndex = hufeNumber % arraySize
+		
 	}
+	
+//	public int hashFunc() {
+//		
+//		//arrayIndex = hugeNumber % arraySize
+//		//return getNormalized().hashCode() % code;
+//	}
 
 	@Override
 	public boolean equals(Object obj) {

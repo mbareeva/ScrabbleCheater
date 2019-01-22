@@ -1,9 +1,12 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import data.SimpleWordList;
 import util.Permutation;
+import util.SubSets;
 
 class Test {
 
@@ -42,10 +45,19 @@ class Test {
 //	void testSearchValidsInSet() {
 //	
 //		SimpleWordList wordList = new SimpleWordList();
-//		wordList.initFromFile("C:\\Users\\beeem\\Documents\\Uni Modulen\\info2\\wordLsts.txt");
-//		//Set <String> set = wordList.validWordsUsingAllTiles("ab");
+//		//wordList.initFromFile("C:\\Users\\beeem\\Documents\\Uni Modulen\\info2\\wordLsts.txt");
+//	//	Set <String> set = wordList.validWordsUsingAllTiles("ab");
 //		//assertEquals("ab, ba", wordList.validWordsUsingAllTiles("ab") );
-//		assertEquals("ab, ba", wordList.initFromFile("C:\\Users\\beeem\\Documents\\Uni Modulen\\info2\\wordLsts.txt") );
+//		assertEquals("ab", "ba", wordList.validWordsUsingAllTiles("ab"));
 //	
 //	}
+	
+	@org.junit.jupiter.api.Test
+	void testgetSubSets() {
+		Set<String> s = new HashSet<>();
+		s.add("a");
+		s.add("b");
+		s.add("ab");
+		assertEquals(s, SubSets.getSubSets("ab"));
+	}
 }

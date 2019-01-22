@@ -7,8 +7,7 @@ public class Main {
 	
 	static SimpleWordList s = new SimpleWordList();
 	public static void main(String[] args) {
-	//	searchValidsInSet("bla");
-		searchValidsInSet("vida");	
+		searchValidsInMap("vida");	
 	}
 	
 	/*
@@ -25,5 +24,21 @@ public class Main {
 			System.out.print(" " + w + " ");
 		}
 	}
+	
+	 public static void searchValidsInMap(String tile){
+	       s.initFromFile(list);
 
+	       s.addAll(s.getWordList());
+
+	        long start = System.currentTimeMillis();
+	        Set<String> wordList = s.validWordsUsingAllTiles(tile);
+	        long end = System.currentTimeMillis();
+
+	        System.out.println("Map");
+	        for(String s : wordList){
+	            System.out.println(s);
+	        }
+	        System.out.println("Time for searching: " + (end - start) + " ms");
+	        System.out.println();
+	    }
 }

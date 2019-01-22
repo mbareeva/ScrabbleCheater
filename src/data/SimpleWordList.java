@@ -14,35 +14,67 @@ import java.util.Map;
 import java.util.Set;
 
 import util.Permutation;
+import util.SubSets;
 
 public class SimpleWordList implements WordList {
 	
 	private Set<String> words = new HashSet<>();
-	private Map<String, ArrayList<String>> wordsMap = new HashMap<>();
+	private Map<Integer, ArrayList<String>> wordsMap = new HashMap<>();
 	
-	@Override
+//	@Override
 	//2.1
-	public Set<String> validWordsUsingAllTiles(String tileRackPart) {
-		Set<String> valids = new HashSet<>();
-		Permutation tiles = new Permutation(tileRackPart);
-		
-		for (String word : words ) {
-			Permutation perm = new Permutation(word);
-			if(perm.equals(tiles)) {
-				valids.add(perm.getWord());
-			}
-		}
-		return valids;
-	}
-	
 //	public Set<String> validWordsUsingAllTiles(String tileRackPart) {
-//	
+//		Set<String> valids = new HashSet<>();
+//		Permutation tiles = new Permutation(tileRackPart);
+//		
+//		for (String word : words ) {
+//			Permutation perm = new Permutation(word);
+//			if(perm.equals(tiles)) {
+//				valids.add(perm.getWord());
+//			}
+//		}
+//		return valids;
 //	}
+//	
+	// The implementation with maps. Retrieve the element from wordsMap 12 lab.
+//	public Set<String> validWordsUsingAllTiles(String tileRackPart) {
+//		Set<String> valids = new HashSet<>();
+//		Permutation tiles = new Permutation(tileRackPart);
+//		
+//		if(wordsMap.containsKey(tiles.hashCode())) {
+//			ArrayList<String> list = wordsMap.get(tiles.hashCode());
+//			// check wether the normalized word is the same as tiles
+//			// then add it to the result set
+//		}
+//
+//		return valids;
+//	}
+	
+	//The implementation with hashFunc()
+//	public Set<String> validWordsUsingAllTiles(String tileRackPart){
+//		Set<String> valids = new HashSet<>();
+//		Permutation tiles = new Permutation(tileRackPart);
+//		
+//		for (Map.Entry<Permutation, ArrayList<String>> entry : wordsMap.entrySet()) {
+//		   Permutation perm = entry.getKey();
+//			if(perm.hashCode() == tiles.hashCode()) {
+//				valids.addAll(entry.getValue());
+//				}
+//		}
+//		//heck whether hashmap contains hashcode
+//		return valids;
+//	}
+	
+	
 
 	@Override
 	public Set<String> allValidWords(String tileRack) {
-		// TODO Auto-generated method stub
-		return null;
+		Set <String> subsets = SubSets.getSubSets(tileRack);
+		Set<String> valids = new HashSet<>();
+		for(String s : subsets) {
+			 valids.addAll(validWordsUsingAllTiles(s));
+		}
+		return valids;
 	}
 
 	@Override
@@ -50,18 +82,21 @@ public class SimpleWordList implements WordList {
 		ArrayList<String> perms = new ArrayList<>(); 
 		perms.add(word);
 		Permutation perm = new Permutation(word);
-		String normalized = perm.getNormalized();
-		if(!wordsMap.containsKey(normalized)) {
-			wordsMap.put(normalized, perms);
+		if(!wordsMap.containsKey(perm.hashCode())) {
+			wordsMap.put(perm.hashCode(), perms);
 		}
 		else{
 			//after get I get the value, the list
 			//why get key and then add to it a value
-			wordsMap.get(normalized).add(perm.getWord());
+			wordsMap.get(perm.hashCode()).add(perm.getWord());
 		}
 		return true;
 	}
-
+	
+	 public Collection<String> getWordList(){
+	        return words;
+	    }
+	 
 	@Override
 	public boolean addAll(Collection<String> words) {
 		for(String w: words)
@@ -82,7 +117,7 @@ public class SimpleWordList implements WordList {
 			BufferedReader reader = new BufferedReader(new FileReader(new File(fileName)));
 			String word  = reader.readLine();
 			while(word != null){
-				words.add(word);
+				add(word);
 				word = reader.readLine();
 			}
 		} catch (FileNotFoundException e) {
