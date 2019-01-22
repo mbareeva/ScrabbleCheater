@@ -37,18 +37,17 @@ public class SimpleWordList implements WordList {
 //	}
 //	
 	// The implementation with maps. Retrieve the element from wordsMap 12 lab.
-//	public Set<String> validWordsUsingAllTiles(String tileRackPart) {
-//		Set<String> valids = new HashSet<>();
-//		Permutation tiles = new Permutation(tileRackPart);
-//		
-//		if(wordsMap.containsKey(tiles.hashCode())) {
-//			ArrayList<String> list = wordsMap.get(tiles.hashCode());
-//			// check wether the normalized word is the same as tiles
-//			// then add it to the result set
-//		}
-//
-//		return valids;
-//	}
+	public Set<String> validWordsUsingAllTiles(String tileRackPart) {
+		ArrayList<String> list = new ArrayList<>();
+		Permutation tiles = new Permutation(tileRackPart);
+		
+		if(wordsMap.containsKey(tiles.hashCode())) {
+			list = wordsMap.get(tiles.hashCode());
+		}
+		Set<String> valids = new HashSet<>(list);
+
+		return valids;
+	}
 	
 	//The implementation with hashFunc()
 //	public Set<String> validWordsUsingAllTiles(String tileRackPart){
@@ -127,8 +126,6 @@ public class SimpleWordList implements WordList {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return this;
 	}
-
 }
