@@ -122,7 +122,7 @@ public class SowPodsTest {
 
 	@BeforeClass
 	public static void createWordList() {
-		wl = new SimpleWordList().initFromFile("wordlists/sowpods.txt");
+		wl = new SimpleWordList().initFromFile("words/sowpods.txt");
 	}
 
 	@Test
